@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    public apiUrl: boolean = 'http://localhost:4000';
+    public apiUrl: string = 'http://localhost:4000';
 
     constructor(
         private http: HttpClient
@@ -17,6 +17,14 @@ export class UserService {
 
     register(user: User) {
         return this.http.post(`${this.apiUrl}/users/register`, user);
+    }
+
+    getUser(id: number) {
+        return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+    }
+
+    updateUser(user: User) {
+        return this.http.post(`${this.apiUrl}/users/${user.id}`, user);
     }
 
     delete(id: number) {

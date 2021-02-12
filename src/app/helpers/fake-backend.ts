@@ -26,6 +26,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return register();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();
+                case url.match(/\/users\/\d+$/) && method === 'GET':
+                    return getUser();
+                case url.match(/\/users\/\d+$/) && method === 'POST':
+                    return updateUser();
                 case url.match(/\/users\/\d+$/) && method === 'DELETE':
                     return deleteUser();
                 default:
@@ -66,6 +70,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function getUsers() {
             if (!isLoggedIn()) return unauthorized();
             return ok(users);
+        }
+
+        function getUser() {
+            if (!isLoggedIn()) return unauthorized();
+
+            let user = users.find(x => x.id === idFromUrl());
+            return ok(user);
+        }
+
+        function updateUser() {
+            if (!isLoggedIn()) return unauthorized();
+
+            let indexOfUser = users.findIndex(x => x.id === idFromUrl());
+            users[indexOfUser].firstName = body.firstName;
+            users[indexOfUser].lastName = body.lastName;
+            localStorage.setItem('users', JSON.stringify(users));
+            return ok();
         }
 
         function deleteUser() {
