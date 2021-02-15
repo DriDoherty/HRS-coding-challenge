@@ -22,7 +22,7 @@ There's nothing fancy in the edit user feature - I was just glad to get it _work
 
 > Add some tests throughout the application either creating new test files or using the pre-built test files.
 
-I have started looking at how the pre-built test files work but will likely need more time to complete this step. When I have it completed, I will update this repo.
+Gained a very basic understanding of pre-built test files and the scripting utilized, updated the modules imported to support the new EditUserComponent basic create test and added an additional test for basic UI element.
 
 I'm glad I decided to push through the challenge - it was actually a fun introduction to Angular.
 
